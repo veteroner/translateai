@@ -1,5 +1,8 @@
-import axios from 'axios';
+import * as axiosLib from 'axios';
 import { API_CONFIG } from '../config';
+
+// Axios örneğini oluştur
+const axios = axiosLib.default || axiosLib;
 
 // Axios örneği oluşturma - Varsayılan API URL'sini kullanma (hatalı olduğu için)
 // Artık Mistral API'yi kullanacağız

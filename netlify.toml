@@ -6,7 +6,7 @@
   publish = "build"
   
   # Node.js versiyonu
-  environment = { NODE_VERSION = "18" }
+  NODE_VERSION = "18"
 
 [build.environment]
   # Build environment variables

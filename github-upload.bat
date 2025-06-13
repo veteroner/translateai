@@ -74,7 +74,7 @@ if exist ".git" (
     git remote get-url origin >nul 2>&1
     if errorlevel 1 (
         echo %YELLOW%Remote origin ekleniyor...%RESET%
-        git remote add origin %REPO_URL%.git
+        git remote add origin %REPO_URL%
         echo %date% %time% - Remote origin eklendi >> %LOGFILE%
     ) else (
         echo %GREEN%✓ Remote origin mevcut%RESET%
@@ -91,7 +91,7 @@ if exist ".git" (
     )
     
     echo %BLUE%Remote origin ekleniyor...%RESET%
-    git remote add origin %REPO_URL%.git
+    git remote add origin %REPO_URL%
     if errorlevel 1 (
         echo %RED%HATA: Remote origin eklenemedi!%RESET%
         echo %date% %time% - HATA: Remote origin eklenemedi >> %LOGFILE%
@@ -153,6 +153,11 @@ if not exist ".gitignore" (
     echo %date% %time% - .gitignore dosyası mevcut >> %LOGFILE%
 )
 
+:: Commit mesajı için kullanıcıdan giriş al
+set "DEFAULT_COMMIT_MSG=TranslateAI güncellemesi"
+set /p "COMMIT_MSG=Commit mesajı (%DEFAULT_COMMIT_MSG%): "
+if "%COMMIT_MSG%"=="" set "COMMIT_MSG=%DEFAULT_COMMIT_MSG%"
+
 :: Dosyaları staging area'ya ekleme
 echo %BLUE%Dosyalar staging area'ya ekleniyor...%RESET%
 git add .
@@ -165,9 +170,6 @@ if errorlevel 1 (
 
 echo %GREEN%✓ Dosyalar staging area'ya eklendi%RESET%
 echo %date% %time% - Dosyalar staging area'ya eklendi >> %LOGFILE%
-
-:: Commit mesajı
-set "COMMIT_MSG=Initial commit - TranslateAI project with Netlify deployment"
 
 :: Değişiklik kontrolü
 git diff --cached --quiet
